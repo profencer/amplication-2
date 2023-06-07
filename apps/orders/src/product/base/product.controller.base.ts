@@ -48,11 +48,26 @@ export class ProductControllerBase {
   })
   async create(@common.Body() data: ProductCreateInput): Promise<Product> {
     return await this.service.create({
-      data: data,
+      data: {
+        ...data,
+
+        order: data.order
+          ? {
+              connect: data.order,
+            }
+          : undefined,
+      },
       select: {
         createdAt: true,
         description: true,
         id: true,
+
+        order: {
+          select: {
+            id: true,
+          },
+        },
+
         price: true,
         updatedAt: true,
       },
@@ -79,6 +94,13 @@ export class ProductControllerBase {
         createdAt: true,
         description: true,
         id: true,
+
+        order: {
+          select: {
+            id: true,
+          },
+        },
+
         price: true,
         updatedAt: true,
       },
@@ -106,6 +128,13 @@ export class ProductControllerBase {
         createdAt: true,
         description: true,
         id: true,
+
+        order: {
+          select: {
+            id: true,
+          },
+        },
+
         price: true,
         updatedAt: true,
       },
@@ -137,11 +166,26 @@ export class ProductControllerBase {
     try {
       return await this.service.update({
         where: params,
-        data: data,
+        data: {
+          ...data,
+
+          order: data.order
+            ? {
+                connect: data.order,
+              }
+            : undefined,
+        },
         select: {
           createdAt: true,
           description: true,
           id: true,
+
+          order: {
+            select: {
+              id: true,
+            },
+          },
+
           price: true,
           updatedAt: true,
         },
@@ -177,6 +221,13 @@ export class ProductControllerBase {
           createdAt: true,
           description: true,
           id: true,
+
+          order: {
+            select: {
+              id: true,
+            },
+          },
+
           price: true,
           updatedAt: true,
         },
